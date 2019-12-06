@@ -35,3 +35,22 @@ pip install -r requirements.txt
 >cd rjdl
 >python3 radiojavan-dl.py
 >```
+
+## Usage
+
+### positional arguments:
+*  url                 the link of music in radiojavan.com
+
+### optional arguments:
+<pre>
+  -h , --help          show this help message and exit
+  -d , --dir          the path for saving mp3 file. Default: ~/Downloads
+  -c , --connection   The maximum number of connections to one server for each download. Default: 1
+  -l , --lyric         download lyric of music and save it in specified dir. Default: ~/Downloads
+  -p , --photo         download photo of music and save it in specified dir. Default: ~/Downloads
+</pre>
+
+## License
+![GitHub](https://img.shields.io/github/license/gictorbit/cpaneltop?style=for-the-badge)
+
+GNU General Public License v3.0
