@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from requests import session
 import argparse
 import json
