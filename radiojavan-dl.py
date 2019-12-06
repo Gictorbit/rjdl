@@ -1,4 +1,4 @@
-import requests
+from requests import session
 import argparse
 import json
 from os import system
@@ -11,7 +11,7 @@ def main():
     # print(parseData)
     tempUrl = make_url(parseData['url'])
 
-    with requests.session() as session:
+    with session() as session:
         respons = session.get(url=tempUrl)
     
     musicData = dict(json.loads(respons.content))
