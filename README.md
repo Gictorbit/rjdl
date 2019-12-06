@@ -44,8 +44,8 @@ pip install -r requirements.txt
 ### optional arguments:
 <pre>
   -h , --help          show this help message and exit
-  -d , --dir          the path for saving mp3 file. Default: ~/Downloads
-  -c , --connection   The maximum number of connections to one server for each download. Default: 1
+  -d , --dir           the path for saving mp3 file. Default: ~/Downloads
+  -c , --connection    The maximum number of connections to one server for each download. Default: 1
   -l , --lyric         download lyric of music and save it in specified dir. Default: ~/Downloads
   -p , --photo         download photo of music and save it in specified dir. Default: ~/Downloads
 </pre>
