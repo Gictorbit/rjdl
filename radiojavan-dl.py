@@ -27,7 +27,7 @@ def main():
 
 def when_is_video(parseData:dict,musicData:dict):
     musicData.pop('related',None)
-    print(json.dumps(musicData,indent=4))
+    # print(json.dumps(musicData,indent=4))
     print("\033[93m=================|Music Video Info|=================\33[0m")
     print('\033[95mSong: \033[33m',musicData['song'],'  ','\033[95martist: \033[33m',musicData['artist'])
     print('\t\33[31m♥',musicData['likes'],'\33[0m | ','\33[36m👁',musicData['views'])
