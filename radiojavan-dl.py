@@ -11,13 +11,59 @@ def main():
 
     parseData = parse_cli()
     # print(parseData)
-    tempUrl = make_url(parseData['url'])
+    tempUrl = make_url(parseData['url'],parseData['type'])
 
     with requests.session() as session:
         respons = session.get(url=tempUrl)
-    
+
     musicData = dict(json.loads(respons.content))
+
+    if parseData['type'] == 'mp3':
+        when_is_mp3(parseData,musicData)
+    else:
+        when_is_video(parseData,musicData)
     
+    sys.exit()
+
+def when_is_video(parseData:dict,musicData:dict):
+    musicData.pop('related',None)
+    print(json.dumps(musicData,indent=4))
+    print("\033[93m=================|Music Video Info|=================\33[0m")
+    print('\033[95mSong: \033[33m',musicData['song'],'  ','\033[95martist: \033[33m',musicData['artist'])
+    print('\t\33[31m♥',musicData['likes'],'\33[0m | ','\33[36m👁',musicData['views'])
+    print("\033[93m====================================================\33[0m")
+
+    fileName = (str(musicData['song'])+'-'+str(musicData['artist'])).replace(' ',"")
+
+    #download music video with user option
+    linkQuality=''
+    if parseData['video'] == 'mid':
+        linkQuality = musicData['link']
+    elif parseData['video'] == 'high':
+        linkQuality = musicData['hq_link']
+    else:
+        linkQuality = musicData['lq_link']
+    
+    download_file(
+        rj_url='\"'+linkQuality+'\"',
+        path=parseData['dir'],
+        connection=parseData['connection'],
+        filename='\"'+fileName+'.mp4'+'\"'
+    )
+
+    #download cover of music video 
+    if parseData['photo'] == True:
+
+        download_file(
+            rj_url=musicData['photo'],
+            path=parseData['dir'],
+            connection=parseData['connection'],
+            filename=fileName+'.jpeg'
+        )
+
+
+def when_is_mp3(parseData:dict,musicData:dict):
+
     # wanted = ['plays','id','title','link','artist',\
     #     'song','likes','dislikes','downloads','photo']
 
@@ -26,14 +72,14 @@ def main():
     print('\33[31m♥',musicData['likes'],'\33[0m | ','\33[34m⮮',musicData['downloads'],'\33[0m | ','\33[36m⯈',musicData['plays'])
     print("\033[93m====================================================\33[0m")
     
-    fileName = str(musicData['song']).replace(' ',"")+'-'+str(musicData['artist']).replace(' ',"")
+    fileName = (str(musicData['song'])+'-'+str(musicData['artist'])).replace(' ',"")
 
     #download music with user option
     download_file(
-        rj_url=musicData['link'],
+        rj_url='\"'+musicData['link']+'\"',
         path=parseData['dir'],
         connection=parseData['connection'],
-        filename=fileName+'.mp3'
+        filename='\"'+fileName+'.mp3'+'\"'
     )
 
     #download cover of music 
@@ -53,6 +99,7 @@ def main():
         with open(parseData['dir']+'/%s-lyric.txt'%fileName,'w') as ltxtfile:
             for row in lyric:
                 ltxtfile.write(row)
+
 
 def download_file(rj_url,path,connection,filename):
     result = system("aria2c -c -x{0} -d {1} -o {2} {3}".format(connection,path,filename,rj_url))
@@ -116,6 +163,18 @@ def parse_cli():
         help = "download photo of music and save it in specified dir.  Default: ~/Downloads"
     )
 
+    parser.add_argument(
+        '-v',
+        '--video',
+        choices=['low','mid','high'],
+        metavar='',
+        type=str,
+        action='store',
+        required=False,
+        default='mid',
+        help = "if you are sure that link is a video, you can choose quality directly\n\
+            if you don't use it we detect it automatically"
+    )
     # parser.add_argument(
     #     '-j',
     #     '--json',
@@ -126,6 +185,7 @@ def parse_cli():
 
     #call parser to parse terminal argum~/Downloadsent
     cli_args = parser.parse_args()
+
     try:
         if not(validators.url(cli_args.url) and 'radiojavan.com'in cli_args.url):
             raise parser.error
@@ -133,13 +193,22 @@ def parse_cli():
         print("url is wrong make sure is from radiojavan.com")
         sys.exit()
 
-    return vars(cli_args)
+    userWants = vars(cli_args)
+    if 'mp3'in userWants['url']:
+        userWants['type']='mp3'
+    else:
+        userWants['type']='video'
+    
+    return userWants
 
-def make_url(user_url:str):
-
-    rjAPI="https://api-rj-app.com/api2/mp3?id="
-    song_name =user_url.split("/")[-1]
-    return rjAPI+song_name
+def make_url(user_url:str,type:str):
+    rjMp4API = "https://api-rj-app.com/api2/video?id="
+    rjMp3API = "https://api-rj-app.com/api2/mp3?id="
+    songID = user_url.split("/")[-1]
+    if type =='mp3':
+        return rjMp3API+songID
+    
+    return rjMp4API+songID
 
 if __name__ == "__main__":
     main()
