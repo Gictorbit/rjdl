@@ -45,10 +45,10 @@ def when_is_video(parseData:dict,musicData:dict):
         linkQuality = musicData['lq_link']
     
     download_file(
-        rj_url='\"'+linkQuality+'\"',
+        rj_url=linkQuality,
         path=parseData['dir'],
         connection=parseData['connection'],
-        filename='\"'+fileName+'.mp4'+'\"'
+        filename=fileName+'.mp4'
     )
 
     #download cover of music video 
@@ -76,10 +76,10 @@ def when_is_mp3(parseData:dict,musicData:dict):
 
     #download music with user option
     download_file(
-        rj_url='\"'+musicData['link']+'\"',
+        rj_url=musicData['link'],
         path=parseData['dir'],
         connection=parseData['connection'],
-        filename='\"'+fileName+'.mp3'+'\"'
+        filename=fileName+'.mp3'
     )
 
     #download cover of music 
@@ -102,7 +102,7 @@ def when_is_mp3(parseData:dict,musicData:dict):
 
 
 def download_file(rj_url,path,connection,filename):
-    result = system("aria2c -c -x{0} -d {1} -o {2} {3}".format(connection,path,filename,rj_url))
+    result = system("aria2c -c -x{0} -d {1} -o {2} {3}".format(connection,path,'\"'+filename+'\"','\"'+rj_url+'\"'))
     if result !=0:
         print('sorry somthing is wrong ')
         sys.exit()
