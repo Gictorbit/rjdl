@@ -22,7 +22,7 @@ git clone "https://github.com/Gictorbit/rjdl.git" && cd rjdl
 and then should install python package reqirements
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 >### install with installer script
 >```bash

@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#!/usr/bin/env bash
 
 echo "creating rjdl directory in ~/.locale/share/ ..."
 mkdir -p "$HOME/.local/share/rjdl"
