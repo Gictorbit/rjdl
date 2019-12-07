@@ -13,6 +13,10 @@ def main():
     # print(parseData)
     tempUrl = make_url(parseData['url'],parseData['type'])
 
+    if netIsOn()==False:
+        print('no internet connection :(')
+        sys.exit()
+
     with requests.session() as session:
         respons = session.get(url=tempUrl)
 
@@ -209,6 +213,15 @@ def make_url(user_url:str,type:str):
         return rjMp3API+songID
     
     return rjMp4API+songID
+
+def netIsOn():
+    try:
+        res = requests.get(url='https://google.com',timeout=10)
+        if res.status_code == 200:
+            return True
+    except Exception:
+        return False
+
 
 if __name__ == "__main__":
     main()
