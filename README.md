@@ -19,11 +19,6 @@ first of all you need to clone the repository :
 git clone "https://github.com/Gictorbit/rjdl.git" && cd rjdl
 ```
 
-and then should install python package reqirements
-
-```bash
-pip3 install -r requirements.txt
-```
 >### install with installer script
 >```bash
 >chmod +x install.sh
@@ -33,6 +28,7 @@ pip3 install -r requirements.txt
 >### run manually
 >```bash
 >cd rjdl
+>pip3 install -r requirements.txt
 >python3 radiojavan-dl.py
 >```
 

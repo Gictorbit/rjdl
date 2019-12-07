@@ -131,7 +131,7 @@ def parse_cli():
         type=str,
         action='store',
         required=False,
-        default='~/Downloads/',
+        default='~/Downloads',
         help = "the path for saving mp3 file.  Default: ~/Downloads"
     )
 
