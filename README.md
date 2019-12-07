@@ -10,7 +10,7 @@ rjdl is a command-line music downloader script for [radiojavan.com](https://radi
 for using this program ,you can run `radiojavan-dl.py` <br> or install it using installer in linux machins</br>
 
 >### Note
->This script uses aria2c download manager behind the scenes, so make sure it is already installed on your operating system 
+>This script uses aria2c download manager behind the scenes, so make sure it is already installed on your operating system if you are not using Debian Package Manager.
 
 
 first of all you need to clone the repository :

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+echo "Installing aria2"
+sudo apt-get install aria2
+
 echo "creating rjdl directory in ~/.locale/share/ ..."
 mkdir -p "$HOME/.local/share/rjdl"
 
