@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#!/usr/bin/env bash
 
 if [ -d "$HOME/.local/share/rjdl" ]
 then

@@ -6,6 +6,7 @@ import json
 from os import system
 import validators
 import sys
+from pathlib import Path
 
 def main():
 
@@ -100,8 +101,10 @@ def when_is_mp3(parseData:dict,musicData:dict):
     #download lyric of music
     if parseData['lyric'] == True:
         lyric = musicData['lyric']
-        with open(parseData['dir']+'/%s-lyric.txt'%fileName,'w') as ltxtfile:
+        home = str(Path.home())
+        with open(home+"/Downloads/"+'/%s-lyric.txt'%fileName,'w+') as ltxtfile:
             for row in lyric:
+                print(row)
                 ltxtfile.write(row)
 
 
@@ -135,7 +138,7 @@ def parse_cli():
         type=str,
         action='store',
         required=False,
-        default='~/Downloads/',
+        default='~/Downloads',
         help = "the path for saving mp3 file.  Default: ~/Downloads"
     )
 
