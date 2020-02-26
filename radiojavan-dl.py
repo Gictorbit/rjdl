@@ -205,11 +205,13 @@ def parse_cli():
     
     return userWants
 
-def make_url(user_url:str,type:str):
-    rjMp4API = "https://api-rj-app.com/api2/video?id="
-    rjMp3API = "https://api-rj-app.com/api2/mp3?id="
+def make_url(user_url:str,EntryType:str):
+    # rjMp4API = "https://api-rj-app.com/api2/video?id="
+    rjMp4API = "https://radiojavan.com/api2/video?id="
+    # rjMp3API = "https://api-rj-app.com/api2/mp3?id="
+    rjMp3API = "https://radiojavan.com/api2/mp3?id="
     songID = user_url.split("/")[-1]
-    if type =='mp3':
+    if EntryType =='mp3':
         return rjMp3API+songID
     
     return rjMp4API+songID
